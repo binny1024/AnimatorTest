@@ -4,7 +4,9 @@ import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -29,8 +31,11 @@ public class MainActivity extends AppCompatActivity {
     ImageView mImg8;
     @BindView(R.id.img1)
     ImageView mImg1;
+    @BindView(R.id.activity_main)
+    RelativeLayout mActivityMain;
 
     private boolean isOpen;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick({R.id.img2, R.id.img3, R.id.img4, R.id.img5, R.id.img6, R.id.img7, R.id.img8, R.id.img1})
     public void onViewClicked(View view) {
+        setViewAlphaAnimation(view);
         switch (view.getId()) {
             case R.id.img2:
                 Toast.makeText(this, "img2", Toast.LENGTH_SHORT).show();
@@ -66,27 +72,50 @@ public class MainActivity extends AppCompatActivity {
                 //红色的开关按钮
                 if (!isOpen) {
                     isOpen = true;
-                    ObjectAnimator.ofFloat(mImg2,"translationY",0,100).setDuration(800).start();
-                    ObjectAnimator.ofFloat(mImg3,"translationY",0,200).setDuration(800).start();
-                    ObjectAnimator.ofFloat(mImg4,"translationY",0,300).setDuration(800).start();
-                    ObjectAnimator.ofFloat(mImg5,"translationY",0,400).setDuration(800).start();
-                    ObjectAnimator.ofFloat(mImg6,"translationY",0,500).setDuration(800).start();
-                    ObjectAnimator.ofFloat(mImg7,"translationY",0,600).setDuration(800).start();
-                    ObjectAnimator.ofFloat(mImg8,"translationY",0,700).setDuration(800).start();
-                }else {
+                    ObjectAnimator.ofFloat(mImg2, "translationY", 0, 100).setDuration(800).start();
+                    ObjectAnimator.ofFloat(mImg3, "translationY", 0, 200).setDuration(800).start();
+                    ObjectAnimator.ofFloat(mImg4, "translationY", 0, 300).setDuration(800).start();
+                    ObjectAnimator.ofFloat(mImg5, "translationY", 0, 400).setDuration(800).start();
+                    ObjectAnimator.ofFloat(mImg6, "translationY", 0, 500).setDuration(800).start();
+                    ObjectAnimator.ofFloat(mImg7, "translationY", 0, 600).setDuration(800).start();
+                    ObjectAnimator.ofFloat(mImg8, "translationY", 0, 700).setDuration(800).start();
+                } else {
                     isOpen = false;
-                    ObjectAnimator.ofFloat(mImg2,"translationY",100,0).setDuration(800).start();
-                    ObjectAnimator.ofFloat(mImg3,"translationY",200,0).setDuration(800).start();
-                    ObjectAnimator.ofFloat(mImg4,"translationY",300,0).setDuration(800).start();
-                    ObjectAnimator.ofFloat(mImg5,"translationY",400,0).setDuration(800).start();
-                    ObjectAnimator.ofFloat(mImg6,"translationY",500,0).setDuration(800).start();
-                    ObjectAnimator.ofFloat(mImg7,"translationY",600,0).setDuration(800).start();
-                    ObjectAnimator.ofFloat(mImg8,"translationY",700,0).setDuration(800).start();
+                    ObjectAnimator.ofFloat(mImg2, "translationY", 100, 0).setDuration(800).start();
+                    ObjectAnimator.ofFloat(mImg3, "translationY", 200, 0).setDuration(800).start();
+                    ObjectAnimator.ofFloat(mImg4, "translationY", 300, 0).setDuration(800).start();
+                    ObjectAnimator.ofFloat(mImg5, "translationY", 400, 0).setDuration(800).start();
+                    ObjectAnimator.ofFloat(mImg6, "translationY", 500, 0).setDuration(800).start();
+                    ObjectAnimator.ofFloat(mImg7, "translationY", 600, 0).setDuration(800).start();
+                    ObjectAnimator.ofFloat(mImg8, "translationY", 700, 0).setDuration(800).start();
                 }
                 break;
-            default:
-                Toast.makeText(this, "sadadasd ", Toast.LENGTH_SHORT).show(); Toast.makeText(this, "img2", Toast.LENGTH_SHORT).show();
-                break;
+
         }
+    }
+
+    @OnClick(R.id.activity_main)
+    public void onViewClicked() {
+        //点击其他地方，收起
+        if (isOpen) {
+//            isOpen = false;
+//            ObjectAnimator.ofFloat(mImg2, "translationY", 100, 0).setDuration(800).start();
+//            ObjectAnimator.ofFloat(mImg3, "translationY", 200, 0).setDuration(800).start();
+//            ObjectAnimator.ofFloat(mImg4, "translationY", 300, 0).setDuration(800).start();
+//            ObjectAnimator.ofFloat(mImg5, "translationY", 400, 0).setDuration(800).start();
+//            ObjectAnimator.ofFloat(mImg6, "translationY", 500, 0).setDuration(800).start();
+//            ObjectAnimator.ofFloat(mImg7, "translationY", 600, 0).setDuration(800).start();
+//            ObjectAnimator.ofFloat(mImg8, "translationY", 700, 0).setDuration(800).start();
+        }
+    }
+    /**
+     * 点击动画效果
+     *
+     * @param view 的透明度变化
+     */
+    public static void setViewAlphaAnimation(View view) {
+        AlphaAnimation alphaAni = new AlphaAnimation(0.05f, 1.0f);
+        alphaAni.setDuration(100);                // 设置动画效果时间
+        view.startAnimation(alphaAni);        // 添加光效动画到VIew
     }
 }
